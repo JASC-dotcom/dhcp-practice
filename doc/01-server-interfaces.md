@@ -72,25 +72,24 @@ Output:
 ```
 × isc-dhcp-server.service - LSB: DHCP server
      Loaded: loaded (/etc/init.d/isc-dhcp-server; generated)
-     Active: failed (Result: exit-code) since Tue 2026-10-06 11:31:27 UTC; 13mi>
+     Active: failed (Result: exit-code) since Tue 2026-10-06 12:28:13 UTC; 5min ago
        Docs: man:systemd-sysv-generator(8)
-    Process: 1924 ExecStart=/etc/init.d/isc-dhcp-server start (code=exited, sta>
-        CPU: 18ms
+    Process: 2040 ExecStart=/etc/init.d/isc-dhcp-server start (code=exited, status=1/FAILURE)
+        CPU: 20ms
 
-Oct 06 11:31:25 server dhcpd[1936]: bugs on either our web page at www.isc.org >
-Oct 06 11:31:25 server dhcpd[1936]: before submitting a bug.  These pages expla>
-Oct 06 11:31:25 server dhcpd[1936]: process and the information we find helpful>
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: exiting.
-Oct 06 11:31:27 server isc-dhcp-server[1924]: Starting ISC DHCPv4 server: dhcpd>
-Oct 06 11:31:27 server isc-dhcp-server[1924]:  failed!
-Oct 06 11:31:27 server systemd[1]: isc-dhcp-server.service: Control process exi>
-Oct 06 11:31:27 server systemd[1]: isc-dhcp-server.service: Failed with result >
-Oct 06 11:31:27 server systemd[1]: Failed to start isc-dhcp-server.service - LS>
-~
+Oct 06 12:28:11 server dhcpd[2052]: bugs on either our web page at www.isc.org or in the README file
+Oct 06 12:28:11 server dhcpd[2052]: before submitting a bug.  These pages explain the proper
+Oct 06 12:28:11 server dhcpd[2052]: process and the information we find helpful for debugging.
+Oct 06 12:28:11 server dhcpd[2052]: 
+Oct 06 12:28:11 server dhcpd[2052]: exiting.
+Oct 06 12:28:13 server isc-dhcp-server[2040]: Starting ISC DHCPv4 server: dhcpdcheck syslog for diagnostics. ... failed!
+Oct 06 12:28:13 server isc-dhcp-server[2040]:  failed!
+Oct 06 12:28:13 server systemd[1]: isc-dhcp-server.service: Control process exited, code=exited, status=1/FAILURE
+Oct 06 12:28:13 server systemd[1]: isc-dhcp-server.service: Failed with result 'exit-code'.
+Oct 06 12:28:13 server systemd[1]: Failed to start isc-dhcp-server.service - LSB: DHCP server.
 ```
 
-The output indicates a failure but doesn't tell us why.
+The output indicates a failure related with 1 interface but doesn't tell us why.
 
 Command:
 
@@ -101,41 +100,41 @@ sudo journalctl -xeu isc-dhcp-server.service
 Output:
 
 ```
-Oct 06 11:31:25 server dhcpd[1936]: Wrote 0 leases to leases file.
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: No subnet declaration for eth2 (192.168.57.10).
-Oct 06 11:31:25 server dhcpd[1936]: ** Ignoring requests on eth2.  If this is not what
-Oct 06 11:31:25 server dhcpd[1936]:    you want, please write a subnet declaration
-Oct 06 11:31:25 server dhcpd[1936]:    in your dhcpd.conf file for the network segment
-Oct 06 11:31:25 server dhcpd[1936]:    to which interface eth2 is attached. **
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: No subnet declaration for eth1 (10.209.68.1).
-Oct 06 11:31:25 server dhcpd[1936]: ** Ignoring requests on eth1.  If this is not what
-Oct 06 11:31:25 server dhcpd[1936]:    you want, please write a subnet declaration
-Oct 06 11:31:25 server dhcpd[1936]:    in your dhcpd.conf file for the network segment
-Oct 06 11:31:25 server dhcpd[1936]:    to which interface eth1 is attached. **
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: No subnet declaration for eth0 (10.0.2.15).
-Oct 06 11:31:25 server dhcpd[1936]: ** Ignoring requests on eth0.  If this is not what
-Oct 06 11:31:25 server dhcpd[1936]:    you want, please write a subnet declaration
-Oct 06 11:31:25 server dhcpd[1936]:    in your dhcpd.conf file for the network segment
-Oct 06 11:31:25 server dhcpd[1936]:    to which interface eth0 is attached. **
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: Not configured to listen on any interfaces!
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: If you think you have received this message due to a bug rather
-Oct 06 11:31:25 server dhcpd[1936]: than a configuration issue please read the section on submitting
-Oct 06 11:31:25 server dhcpd[1936]: bugs on either our web page at www.isc.org or in the README file
-Oct 06 11:31:25 server dhcpd[1936]: before submitting a bug.  These pages explain the proper
-Oct 06 11:31:25 server dhcpd[1936]: process and the information we find helpful for debugging.
-Oct 06 11:31:25 server dhcpd[1936]: 
-Oct 06 11:31:25 server dhcpd[1936]: exiting.
-Oct 06 11:31:27 server isc-dhcp-server[1924]: Starting ISC DHCPv4 server: dhcpdcheck syslog for diagnostics. ... failed!
-Oct 06 11:31:27 server isc-dhcp-server[1924]:  failed!
-Oct 06 11:31:27 server systemd[1]: isc-dhcp-server.service: Control process exited, code=exited, status=1/FAILURE
+░░ Support: https://www.debian.org/support
+░░ 
+░░ A start job for unit isc-dhcp-server.service has finished with a failure.
+░░ 
+░░ The job identifier is 574 and the job result is failed.
+Oct 06 12:28:11 server systemd[1]: Starting isc-dhcp-server.service - LSB: DHCP server...
+░░ Subject: A start job for unit isc-dhcp-server.service has begun execution
+░░ Defined-By: systemd
+░░ Support: https://www.debian.org/support
+░░ 
+░░ A start job for unit isc-dhcp-server.service has begun execution.
+░░ 
+░░ The job identifier is 638.
+Oct 06 12:28:11 server isc-dhcp-server[2040]: Launching IPv4 server only.
+Oct 06 12:28:11 server dhcpd[2052]: Wrote 0 leases to leases file.
+Oct 06 12:28:11 server dhcpd[2052]: 
+Oct 06 12:28:11 server dhcpd[2052]: No subnet declaration for eth2 (192.168.57.10).
+Oct 06 12:28:11 server dhcpd[2052]: ** Ignoring requests on eth2.  If this is not what
+Oct 06 12:28:11 server dhcpd[2052]:    you want, please write a subnet declaration
+Oct 06 12:28:11 server dhcpd[2052]:    in your dhcpd.conf file for the network segment
+Oct 06 12:28:11 server dhcpd[2052]:    to which interface eth2 is attached. **
+Oct 06 12:28:11 server dhcpd[2052]: 
+Oct 06 12:28:11 server dhcpd[2052]: 
+Oct 06 12:28:11 server dhcpd[2052]: Not configured to listen on any interfaces!
+Oct 06 12:28:11 server dhcpd[2052]: 
+Oct 06 12:28:11 server dhcpd[2052]: If you think you have received this message due to a bug rather
+Oct 06 12:28:11 server dhcpd[2052]: than a configuration issue please read the section on submitting
+Oct 06 12:28:11 server dhcpd[2052]: bugs on either our web page at www.isc.org or in the README file
+Oct 06 12:28:11 server dhcpd[2052]: before submitting a bug.  These pages explain the proper
+Oct 06 12:28:11 server dhcpd[2052]: process and the information we find helpful for debugging.
+Oct 06 12:28:11 server dhcpd[2052]: 
+Oct 06 12:28:11 server dhcpd[2052]: exiting.
+Oct 06 12:28:13 server isc-dhcp-server[2040]: Starting ISC DHCPv4 server: dhcpdcheck syslog for diagnostics. ... failed!
+Oct 06 12:28:13 server isc-dhcp-server[2040]:  failed!
+Oct 06 12:28:13 server systemd[1]: isc-dhcp-server.service: Control process exited, code=exited, status=1/FAILURE
 ░░ Subject: Unit process exited
 ░░ Defined-By: systemd
 ░░ Support: https://www.debian.org/support
@@ -143,21 +142,21 @@ Oct 06 11:31:27 server systemd[1]: isc-dhcp-server.service: Control process exit
 ░░ An ExecStart= process belonging to unit isc-dhcp-server.service has exited.
 ░░ 
 ░░ The process' exit code is 'exited' and its exit status is 1.
-Oct 06 11:31:27 server systemd[1]: isc-dhcp-server.service: Failed with result 'exit-code'.
+Oct 06 12:28:13 server systemd[1]: isc-dhcp-server.service: Failed with result 'exit-code'.
 ░░ Subject: Unit failed
 ░░ Defined-By: systemd
 ░░ Support: https://www.debian.org/support
 ░░ 
 ░░ The unit isc-dhcp-server.service has entered the 'failed' state with result 'exit-code'.
-Oct 06 11:31:27 server systemd[1]: Failed to start isc-dhcp-server.service - LSB: DHCP server.
+Oct 06 12:28:13 server systemd[1]: Failed to start isc-dhcp-server.service - LSB: DHCP server.
 ░░ Subject: A start job for unit isc-dhcp-server.service has failed
 ░░ Defined-By: systemd
 ░░ Support: https://www.debian.org/support
 ░░ 
 ░░ A start job for unit isc-dhcp-server.service has finished with a failure.
 ░░ 
-░░ The job identifier is 443 and the job result is failed.
+░░ The job identifier is 638 and the job result is failed.
 
 ```
 
-Now it indicates a failure because there is no subnet declaration yet.
+Now it indicates a failure because there is no subnet declaration for the interface 'eth2' yet.
